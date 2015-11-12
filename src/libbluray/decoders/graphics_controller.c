@@ -424,8 +424,14 @@ static void _reset_page_state(GRAPHICS_CONTROLLER *gc)
     }
 
     size_t size = page->num_bogs * sizeof(*gc->bog_data);
-    gc->bog_data = realloc(gc->bog_data, size);
+    BOG_DATA* tmp = (BOG_DATA*)realloc(gc->bog_data, size);
 
+    if (!tmp) {
+        GC_ERROR("_reset_page_state(): out of memory\n");
+        return;
+    }
+
+    gc->bog_data = tmp;
     memset(gc->bog_data, 0, size);
 
     for (ii = 0; ii < page->num_bogs; ii++) {
