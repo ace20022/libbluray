@@ -28,9 +28,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+
 
 #include "libbluray/bluray.h"
+#include "libbluray/bdj/bdj.h"
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -44,6 +45,15 @@ static void _usage(void) {
 int main(int argc, char** argv)
 {
     if (argc < 3) {
+        BDJ_STORAGE* bds = calloc(1, sizeof(BDJ_STORAGE));;
+        int a = -1;
+        /* BD-J titles found. Check if jvm + jar can be loaded ? */
+        switch (bdj_jvm_available(&bds)) {
+        case 2: a = 1;
+        case 1: a = 2;
+        default:;
+        }
+
         _usage();
         return 0;
     }

@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
-#include <unistd.h>
+#include <getopt.h>
 
 #define OPTS "ahs:l"
 

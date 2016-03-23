@@ -20,7 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <getopt.h>
 #include <inttypes.h>
 
 #include "libbluray/bdnav/clpi_data.h"

@@ -22,6 +22,7 @@ ENDMACRO(ADD_MSVC_PRECOMPILED_HEADER)
 
 get_filename_component(PROJECT_SOURCE_DIR "../src" ABSOLUTE)
 get_filename_component(EXAMPLES_SOURCE_DIR "../src/examples" ABSOLUTE)
+get_filename_component(DEV_SOURCE_DIR "../src/devtools" ABSOLUTE)
 get_filename_component(BASEPATH "../" ABSOLUTE)
 message("${PROJECT_SOURCE_DIR}")
 message("${BASEPATH}")
@@ -217,7 +218,7 @@ if (EXISTS ${ANTEXE})
         ${ANTEXE} -f "${ANT_BUILD}"
                   -Ddist="${CMAKE_CURRENT_SOURCE_DIR}/build/Debug"
                   -Dsrc_awt=:java-j2se
-                  -Dversion="j2se-0.9.2"
+                  -Dversion="j2se-0.9.1"
   )
 else()
   message("ANT path not set, can't compile libbluray.jar")
@@ -226,6 +227,10 @@ endif()
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cm ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
 
 # examples
+
+ADD_LIBRARY(getopt SHARED ${CMAKE_CURRENT_SOURCE_DIR}/getopt.c 
+						  ${CMAKE_CURRENT_SOURCE_DIR}/getopt.h)
+						  
 set(ex_SRCS ${EXAMPLES_SOURCE_DIR}/bd_info.c
 			${EXAMPLES_SOURCE_DIR}/bdsplice.c
 			${EXAMPLES_SOURCE_DIR}/index_dump.c
@@ -233,6 +238,25 @@ set(ex_SRCS ${EXAMPLES_SOURCE_DIR}/bd_info.c
 			${EXAMPLES_SOURCE_DIR}/list_titles.c
 			${EXAMPLES_SOURCE_DIR}/sound_dump.c
 )
-ADD_MSVC_PRECOMPILED_HEADER("headers_fixup.h" ex_SRCS)
-add_executable(examples ${ex_SRCS})
-target_link_libraries(examples libbluray)
+
+foreach( ex ${ex_SRCS} )
+	get_filename_component(EXE ${ex} NAME_WE)
+    add_executable( ${EXE} ${ex} )
+    target_link_libraries( ${EXE} libbluray getopt)
+endforeach( ex ${ex_SRCS} )
+ADD_MSVC_PRECOMPILED_HEADER("${CMAKE_CURRENT_SOURCE_DIR}/headers_fixup.h" ex_SRCS)
+
+set(dev_SRCS ${DEV_SOURCE_DIR}/bdj_test.c
+			 ${DEV_SOURCE_DIR}/bdjo_dump.c
+			 #${DEV_SOURCE_DIR}/clpi_dump.c
+			 ${DEV_SOURCE_DIR}/hdmv_test.c
+			 #${DEV_SOURCE_DIR}/mobj_dump.c
+			 #${DEV_SOURCE_DIR}/mpls_dump.c
+)
+
+foreach( ex ${dev_SRCS} )
+	get_filename_component(EXE ${ex} NAME_WE)
+    add_executable( ${EXE} ${ex} )
+    target_link_libraries( ${EXE} libbluray getopt)
+endforeach( ex ${ex_SRCS} )
+ADD_MSVC_PRECOMPILED_HEADER("${CMAKE_CURRENT_SOURCE_DIR}/headers_fixup.h" ex_SRCS)

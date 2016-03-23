@@ -23,8 +23,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <libgen.h>
+#include <getopt.h>
 #include <inttypes.h>
 
 #include "libbluray/bluray.h"
