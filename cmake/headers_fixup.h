@@ -3,7 +3,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 # ifndef snprintf
-#  define snprintf _snprintf
+//#  define snprintf _snprintf
 # endif
 # ifndef snwprintf
 #  define snwprintf _snwprintf
@@ -78,7 +78,7 @@ typedef unsigned int mode_t;
 # define HAVE_STRCASECMP
 # define strncasecmp _strnicmp
 # ifndef vsnprintf
-#  define vsnprintf _vsnprintf
+//#  define vsnprintf _vsnprintf
 # endif
 
 #define HAVE_LLDIV
