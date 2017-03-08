@@ -217,7 +217,7 @@ if (EXISTS ${ANTEXE})
         ${ANTEXE} -f "${ANT_BUILD}"
                   -Ddist="${CMAKE_CURRENT_SOURCE_DIR}/build/Debug"
                   -Dsrc_awt=:java-j2se
-                  -Dversion="j2se-0.9.1"
+                  -Dversion="j2se-1.0.0"
   )
 else()
   message("ANT path not set, can't compile libbluray.jar")
