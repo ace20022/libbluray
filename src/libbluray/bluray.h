@@ -1086,6 +1086,19 @@ void bd_stop_bdj(BLURAY *bd); // shutdown BD-J and clean up resources
  */
 int bd_read_file(BLURAY *, const char *path, void **data, int64_t *size);
 
+/**
+*
+*  Check if BD-J is functional
+*
+*  Checks whether BD-J support was compiled in and if so
+*  whether jvm and/or libbluray.jar is usable or not.
+*
+* @return -1 if BD-J support was not compiled in,
+*         0: JVM library could not be loaded
+*         1: only the JVM library could be loaded
+*         2: the JVM library and the libbluray.jar could be loaded
+*/
+int bd_bdj_functional();
 
 #ifdef __cplusplus
 }

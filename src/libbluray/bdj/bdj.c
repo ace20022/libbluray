@@ -631,6 +631,20 @@ static int _bdj_init(JNIEnv *env, struct bluray *bd, const char *disc_root, cons
     return 1;
 }
 
+int bdj_functional()
+{
+  BDJ_STORAGE* bds = calloc(1, sizeof(BDJ_STORAGE));
+  if (!bds) {
+    BD_DEBUG(DBG_CRIT, "out of memory\n");
+    return 0;
+  }
+
+  int ret = bdj_jvm_available(bds);
+  X_FREE(bds);
+
+  return ret;
+}
+
 int bdj_jvm_available(BDJ_STORAGE *storage)
 {
     const char *java_home;

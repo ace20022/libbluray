@@ -3862,3 +3862,13 @@ void bd_free_bdjo(struct bdjo_data *obj)
     (void)obj;
 #endif
 }
+
+int bd_bdj_functional()
+{
+#ifdef USING_BDJAVA
+  return bdj_functional();
+#else
+  return -1;
+#endif
+
+}
