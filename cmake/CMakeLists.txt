@@ -84,6 +84,8 @@ set(SRCS    ${CMAKE_CURRENT_SOURCE_DIR}/headers_fixup.h
             ${PROJECT_SOURCE_DIR}/libbluray/bdnav/navigation.h
             ${PROJECT_SOURCE_DIR}/libbluray/bdnav/sound_parse.c
             ${PROJECT_SOURCE_DIR}/libbluray/bdnav/sound_parse.h
+            ${PROJECT_SOURCE_DIR}/libbluray/bdnav/uo_mask.c
+            ${PROJECT_SOURCE_DIR}/libbluray/bdnav/uo_mask.h
             ${PROJECT_SOURCE_DIR}/libbluray/bdnav/uo_mask_table.h
             ${PROJECT_SOURCE_DIR}/libbluray/decoders/graphics_controller.c
             ${PROJECT_SOURCE_DIR}/libbluray/decoders/graphics_controller.h
@@ -119,6 +121,10 @@ set(SRCS    ${CMAKE_CURRENT_SOURCE_DIR}/headers_fixup.h
             ${PROJECT_SOURCE_DIR}/libbluray/disc/disc.c
             ${PROJECT_SOURCE_DIR}/libbluray/disc/disc.h
             ${PROJECT_SOURCE_DIR}/libbluray/disc/enc_info.h
+            ${PROJECT_SOURCE_DIR}/libbluray/disc/properties.h
+            ${PROJECT_SOURCE_DIR}/libbluray/disc/properties.c
+            ${PROJECT_SOURCE_DIR}/libbluray/disc/udf_fs.c
+            ${PROJECT_SOURCE_DIR}/libbluray/disc/udf_fs.h
             ${PROJECT_SOURCE_DIR}/libbluray/hdmv/hdmv_insn.h
             ${PROJECT_SOURCE_DIR}/libbluray/hdmv/hdmv_vm.c
             ${PROJECT_SOURCE_DIR}/libbluray/hdmv/hdmv_vm.h
@@ -207,6 +213,9 @@ ADD_LIBRARY(libbluray SHARED ${SRCS})
 SET_TARGET_PROPERTIES(libbluray PROPERTIES LINK_FLAGS "/DEF:\"libbluray.def\"")
 
 endif()
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/libudfread/include)
+TARGET_LINK_LIBRARIES(libbluray ${CMAKE_CURRENT_SOURCE_DIR}/libs/libudfread/libudfread.lib)
 
 if (EXISTS ${ANTEXE})
   STRING(REGEX REPLACE "/" "\\\\" ANT_BUILD "${PROJECT_SOURCE_DIR}/libbluray/bdj/build.xml")
