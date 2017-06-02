@@ -3728,7 +3728,7 @@ const struct meta_dl *bd_get_meta(BLURAY *bd)
 {
     const struct meta_dl *meta = NULL;
 
-    if (!bd) {
+    if (!bd || !bd->disc) {
         return NULL;
     }
 
